@@ -101,9 +101,8 @@ def train():
 	early_stopping = EarlyStopping(monitor='val_loss', patience=2,
 				       restore_best_weights=True, verbose=1)
 	hist = model.fit(X_t, y_t, batch_size=batch_size,
-					epochs=epochs, validation_data=(X_v, y_v),
-					verbose=1,
-					callbacks=[early_stopping])
+			 epochs=epochs, validation_data=(X_v, y_v),
+			 verbose=1, callbacks=[early_stopping])
 
 	return 'model trained'
 
@@ -125,9 +124,9 @@ def pred():
 	genres_pred = []
 	genres_prob = []
 	for i, a in enumerate(sort_idx):
-			a_idx = a[::-1][0:5]
-			genres_pred.append([mlb.classes_[g] for g in a_idx])
-			genres_prob.append(y_pred[i][a_idx])
+		a_idx = a[::-1][0:5]
+		genres_pred.append([mlb.classes_[g] for g in a_idx])
+		genres_prob.append(y_pred[i][a_idx])
 
 	# create output dataframe
 	out = pd.DataFrame({'movie_id': ids,
