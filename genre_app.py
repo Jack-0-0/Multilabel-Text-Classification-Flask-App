@@ -92,7 +92,7 @@ def train():
 	a = GlobalAveragePooling1D()(x)
 	m = GlobalMaxPooling1D()(x)
 	conc = concatenate([a, m])
-	outp = Dense(19, activation="sigmoid")(conc)
+	outp = Dense(len(genres), activation="sigmoid")(conc)
 	model = Model(inputs=inp, outputs=outp)
 	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
