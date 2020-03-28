@@ -72,7 +72,7 @@ def train():
 	def get_coefs(word, *arr):
 		return word, np.asarray(arr, dtype='float32')
 	embeddings_index = dict(get_coefs(*o.rstrip().rsplit(' '))
-							for o in open(embedding_file))
+				for o in open(embedding_file))
 	word_index = tokenizer.word_index
 	nb_words = min(max_features, len(word_index))
 	embedding_matrix = np.zeros((nb_words, embed_size))		
@@ -97,10 +97,9 @@ def train():
 	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 	# train model
-	X_t, X_v, y_t, y_v = train_test_split(x_train, y_train,
-													train_size=0.90)
+	X_t, X_v, y_t, y_v = train_test_split(x_train, y_train, train_size=0.90)
 	early_stopping = EarlyStopping(monitor='val_loss', patience=2,
-									restore_best_weights=True, verbose=1)
+				       restore_best_weights=True, verbose=1)
 	hist = model.fit(X_t, y_t, batch_size=batch_size,
 					epochs=epochs, validation_data=(X_v, y_v),
 					verbose=1,
@@ -132,10 +131,9 @@ def pred():
 
 	# create output dataframe
 	out = pd.DataFrame({'movie_id': ids,
-						'predicted_genres': genres_pred,
-						'probs': genres_prob,
-						'synopsis': synopsis
-						})
+			    'predicted_genres': genres_pred,
+			    'probs': genres_prob,
+			    'synopsis': synopsis})
 	out['predicted_genres'] = out['predicted_genres'].apply(lambda x: ' '.join(x))
 	out = out.drop(columns=['probs', 'synopsis']) 
 
